@@ -39,7 +39,7 @@ const Login = () => {
       );
 
       if (data.status === "LOGIN_SUCCESSFULL") {
-        alert("login successfully");
+        alert("Login Successfully");
         dispatch(setNameStore(data.name));
         dispatch(setEmailStore(data.email));
         dispatch(setIsEmailVerifiedStore(data.isEmailVerified));

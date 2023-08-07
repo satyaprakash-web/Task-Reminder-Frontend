@@ -28,23 +28,26 @@ const Home = () => {
   // useEffect hook ensures that when the component mounts or when the email variable changes (which likely occurs after login or logout), the component will fetch the user's reminders from the server and update the reminderList state with the fetched data. This way, the user's reminders are displayed on the home page whenever the data changes.
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await axios.post(
-        `${process.env.REACT_APP_SERVER}/api/reminder/getAllReminders`,
-        {
-          email: email,
+    // Fetch reminders only if the email is not an empty string
+    if (email) {
+      const fetchData = async () => {
+        const { data } = await axios.post(
+          `${process.env.REACT_APP_SERVER}/api/reminder/getAllReminders`,
+          {
+            email: email,
+          }
+        );
+  
+        if (data.status === "SUCCESSFULLY_FETCHED") {
+          setReminderList(data.message);
+        } else {
+          alert(data.message);
         }
-      );
-
-      if (data.status === "SUCCESSFULLY_FETCHED") {
-        setReminderList(data.message);
-      } else {
-        alert(data.message);
-      }
-    };
-    fetchData();
+      };
+      fetchData();
+    }
   }, [email]);
-
+ 
   // addReminder function is responsible for sending the user's new reminder data to the server, updating the reminders list in the UI if the request is successful, and resetting the input fields for the next reminder.
 
   const addReminder = async () => {
@@ -82,8 +85,16 @@ const Home = () => {
 
   // dispatch function used to dispatch actions to the Redux store.A series of dispatch calls are made to reset the user-related data in the Redux store.
 
-  const logOutHandler = (e) => {
+  const logOutHandler = async(e) => {
     e.preventDefault();
+
+    const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/api/user/logout`, {
+      email: email
+    });
+
+
+
+    console.log(data)
 
     dispatch(setNameStore(""));
     dispatch(setEmailStore(""));
