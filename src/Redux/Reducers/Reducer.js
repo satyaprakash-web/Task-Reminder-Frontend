@@ -38,7 +38,8 @@ const userReducer = (currentState = initialState, action) => {
                 ...currentState,
                 token: action.payload
             }
-         // If an action type is not recognized , the reducer returns the current state as is. This ensures that Redux state remains immutable and unchanged if the action type is not handled.
+         // // If an action type is not recognized , the reducer returns the current state as is. 
+            // This ensures that Redux state remains immutable and unchanged if the action type is not handled.
  
          default:
             return currentState
