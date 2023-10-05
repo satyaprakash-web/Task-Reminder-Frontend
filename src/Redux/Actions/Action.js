@@ -34,5 +34,7 @@ export const setTokenStore = (payload) => {
 }
 
 // Action creators are functions that return action objects, which are used to dispatch actions to the Redux store. 
-// These action creators can be used with Redux's dispatch function to update the user state in the Redux store. For example, to set a new user name, you would call dispatch(setNameStore("Ram")) with the appropriate value for the payload. The action will be dispatched to the reducer, and the user name will be updated in the store accordingly.
+// These action creators can be used with Redux's dispatch function to update the user state in the Redux store.
+// For example, to set a new user name, you would call dispatch(setNameStore("Ram")) with the appropriate value for
+// the payload. The action will be dispatched to the reducer, and the user name will be updated in the store accordingly.
 
