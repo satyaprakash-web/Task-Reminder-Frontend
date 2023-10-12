@@ -10,7 +10,7 @@ import store from './Redux/Store/Store';
 import ResetPassword from './Components/ForgotPassword/ResetPassword';
 
 // The store.subscribe() line adds a listener to the Redux store that logs the current state whenever it changes. This is useful for debugging and understanding the state changes in the application.
-store.subscribe(() => {console.log(store.getState())})
+// store.subscribe(() => {console.log(store.getState())})
 
 function App() {
 
