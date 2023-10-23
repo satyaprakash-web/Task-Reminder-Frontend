@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Login.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,18 @@ const Login = () => {
   const [iconState, setIconState] = useState("bx-show");
   const [showPassword, setShowPassword] = useState(true);
 
+  useEffect(()=>{
+    const data = localStorage.getItem('details');
+    try{
+      const parsed = JSON.parse(data);
+      if(parsed.email){
+        window.location.href='/home'
+      }
+    } catch(error){
+      
+    }
+  },[]);
+
   const eyeIconHandler = (e) => {
     e.preventDefault();
     setIconState(iconState === "bx-show" ? "bx-hide" : "bx-show");
@@ -35,6 +47,8 @@ const Login = () => {
         {
           email: email,
           password: password,
+        }, {
+          // withCredentials:true,
         }
       );
 
@@ -45,6 +59,7 @@ const Login = () => {
         dispatch(setIsEmailVerifiedStore(data.isEmailVerified));
         dispatch(setIsLoggedInStore(data.isLoggedIn));
         dispatch(setTokenStore(data.token));
+        localStorage.setItem('details', JSON.stringify(data));
         navigate("/home");
       } else {
         alert(data.message);

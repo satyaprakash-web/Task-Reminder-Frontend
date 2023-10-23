@@ -118,9 +118,9 @@
 }
 
 .log-out-btn{
-    position: absolute;
+    /* position: absolute;
     top: 1rem;
-    right: 3rem;
+    right: 3rem; */
     background: #1877f2;
     border: 1px solid #1877f2;
     color: #fff;
@@ -131,6 +131,11 @@
     border-radius: 8px;
     outline: none;
     cursor: pointer;
+}
+.header-wrapper{
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
 }
 
 ::-webkit-scrollbar{

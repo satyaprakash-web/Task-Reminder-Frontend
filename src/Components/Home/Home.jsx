@@ -71,7 +71,8 @@ const Home = () => {
   const deleteReminder = async (id, email) => {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER}/api/reminder/deleteReminders`,
-      { id, email }
+      { id, email },
+
     );
 
     if (data.status === "SUCCESSFULLY_FETCHED") {
@@ -85,6 +86,22 @@ const Home = () => {
 
   // dispatch function used to dispatch actions to the Redux store.A series of dispatch calls are made to reset the user-related data in the Redux store.
 
+  useEffect(()=>{
+    const data = localStorage.getItem('details');
+    try{
+      const parsed = JSON.parse(data);
+      dispatch(setNameStore(parsed.name));
+      dispatch(setEmailStore(parsed.email));
+      dispatch(setIsEmailVerifiedStore(parsed.isEmailVerified));
+      dispatch(setIsLoggedInStore(parsed.isLoggedIn));
+      dispatch(setTokenStore(parsed.token));
+
+
+    } catch(error){
+      window.location.href = '/';
+    }
+  },[]);
+
   const logOutHandler = async(e) => {
     e.preventDefault();
 
@@ -92,9 +109,7 @@ const Home = () => {
       email: email
     });
 
-
-
-    console.log(data)
+    localStorage.clear();
 
     dispatch(setNameStore(""));
     dispatch(setEmailStore(""));
@@ -108,10 +123,12 @@ const Home = () => {
   return (
     <div className="homepage-container">
       <div className="homepage">
-        <h1>Welcome {`${myStore.Name}`}</h1>
-        <button className="log-out-btn" onClick={logOutHandler}>
-          Log Out
-        </button>
+        <div className="header-wrapper">
+          <h1>Welcome {`${myStore.Name}`}</h1>
+          <button className="log-out-btn" onClick={logOutHandler}>
+            Log Out
+          </button>
+        </div>
         <div className="homepage_header">
           <h1>Remind Me 🙋‍♂️</h1>
           <input
