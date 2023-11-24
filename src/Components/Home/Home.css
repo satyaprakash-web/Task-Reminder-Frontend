@@ -118,9 +118,6 @@
 }
 
 .log-out-btn{
-    /* position: absolute;
-    top: 1rem;
-    right: 3rem; */
     background: #1877f2;
     border: 1px solid #1877f2;
     color: #fff;
@@ -132,11 +129,32 @@
     outline: none;
     cursor: pointer;
 }
+.delete-user-btn {
+    background: #f24018;
+    border: 1px solid #1877f2;
+    color: #fff;
+    font-size: 1.25rem;
+    text-align: center;
+    padding: 0.5rem 0;
+    margin: 0.5rem;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+  }  
+@media (max-width: 800px) {
+    .delete-user-btn,.log-out-btn {
+      font-size: 1rem;
+    }
+  }
 .header-wrapper{
     display: flex;
     justify-content: space-between;
     width: 90%;
 }
+
+.header-wrapper h1 {
+    color: #e97a9b; 
+  }
 
 ::-webkit-scrollbar{
     display: none;

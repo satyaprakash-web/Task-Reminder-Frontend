@@ -20,6 +20,7 @@ const Home = () => {
   const [remindAt, setRemindAt] = useState(new Date());
   const [reminderList, setReminderList] = useState([]);
 
+
   // useSelector hook from the react-redux library to access data from the Redux store. It retrieves the Email field from the userReducer.
 
   const myStore = useSelector((store) => store.userReducer);
@@ -66,6 +67,7 @@ const Home = () => {
   };
 
   // axios.post to make an HTTP POST request to the server endpoint and sends the id and email as the request payload.
+  
   // const { data } = ...: After the response is received from the server, the data field of the response object is destructured to extract the data from the server's response. The server's response is expected to contain a status field and a message field.
 
   const deleteReminder = async (id, email) => {
@@ -100,7 +102,8 @@ const Home = () => {
     } catch(error){
       window.location.href = '/';
     }
-  },[]);
+  },[dispatch]);
+  
 
   const logOutHandler = async(e) => {
     e.preventDefault();
@@ -120,6 +123,25 @@ const Home = () => {
     navigate("/");
   };
 
+  const deleteUser = async (e) => {
+    e.preventDefault();
+    try {
+        const { data } = await axios.post(`${process.env.REACT_APP_SERVER}/api/user/delete`, {
+            email: email
+        });
+
+        if (data.status === "USER_DELETED_SUCCESSFULLY") {
+            // Clear local storage and reset Redux store
+            localStorage.clear();
+            navigate("/"); 
+        } else {
+            alert(data.message);
+        }
+    } catch (error) {
+      console.error(error);
+    }
+};
+
   return (
     <div className="homepage-container">
       <div className="homepage">
@@ -128,6 +150,9 @@ const Home = () => {
           <button className="log-out-btn" onClick={logOutHandler}>
             Log Out
           </button>
+          <button className="delete-user-btn" onClick={deleteUser}>
+        Delete Account
+    </button>
         </div>
         <div className="homepage_header">
           <h1>Remind Me 🙋‍♂️</h1>
