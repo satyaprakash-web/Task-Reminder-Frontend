@@ -51,7 +51,16 @@ const Home = () => {
  
   // addReminder function is responsible for sending the user's new reminder data to the server, updating the reminders list in the UI if the request is successful, and resetting the input fields for the next reminder.
 
-  const addReminder = async () => {
+  const [isAddingReminder, setIsAddingReminder] = useState(false);
+
+const addReminder = async () => {
+  if (isAddingReminder) {
+    return; // Prevent adding reminders if the process is already ongoing
+  }
+
+  setIsAddingReminder(true);
+
+  try {
     const { data } = await axios.post(
       `${process.env.REACT_APP_SERVER}/api/reminder/addReminders`,
       { reminderMsg, remindAt, email }
@@ -64,7 +73,13 @@ const Home = () => {
     }
     setReminderMsg("");
     setRemindAt(new Date());
-  };
+  } catch (error) {
+    console.error("Error adding reminder:", error);
+    // Handle error, show error message, etc.
+  } finally {
+    setIsAddingReminder(false);
+  }
+};
 
   // axios.post to make an HTTP POST request to the server endpoint and sends the id and email as the request payload.
   
