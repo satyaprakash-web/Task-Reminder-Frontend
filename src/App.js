@@ -5,7 +5,7 @@ import SignUp from './Components/SignUp/SignUp';
 import Verify from './Components/Verify/Verify';
 import Home from './Components/Home/Home';
 import Forgot from './Components/ForgotPassword/Forgot';
-import store from './Redux/Store/Store';
+// import store from './Redux/Store/Store';
 // import { useSelector } from 'react-redux';
 import ResetPassword from './Components/ForgotPassword/ResetPassword';
 
